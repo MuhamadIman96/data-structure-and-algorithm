@@ -26,11 +26,11 @@ class SingleLinkedList {
   }
   pop() {
     if (!this.head) return undefined;
-    let current = this.head;
-    let newTail = current;
-    while (current.next) {
-      newTail = current;
-      current = current.next;
+    let currentNode = this.head;
+    let newTail = currentNode;
+    while (currentNode.next) {
+      newTail = currentNode;
+      currentNode = currentNode.next;
     }
     this.tail = newTail;
     this.tail.next = null;
@@ -49,7 +49,7 @@ class SingleLinkedList {
     if (this.length === 0) {
       this.tail = null;
     }
-    return this;
+    return currentHead;
   }
   unshift(value) {
     let newNode = new Node(value);
@@ -87,16 +87,16 @@ class SingleLinkedList {
     if (index === this.length) return !!this.push(value);
     let newNode = new Node(value);
     let prevNode = this.get(index - 1);
-    let temp = prevNode.next;
+    let tempNode = prevNode.next;
     prevNode.next = newNode;
-    newNode.next = temp;
+    newNode.next = tempNode;
     this.length++;
     return true;
   }
   remove(index) {
     if (index < 0 || index >= this.length) return undefined;
-    if (index === 0) return this.shift();
     if (index === this.length - 1) return this.pop();
+    if (index === 0) return this.shift();
     let prevNode = this.get(index - 1);
     let removeNode = prevNode.next;
     prevNode.next = removeNode.next;
@@ -116,6 +116,48 @@ class SingleLinkedList {
       currentNode = next;
     }
     return this;
+  }
+  getLength() {
+    let currentNode = this.head;
+    let count = 0;
+    while (currentNode) {
+      count++;
+      currentNode = currentNode.next;
+    }
+    return count;
+  }
+  isEmpty() {
+    return this.head === null ? true : false;
+  }
+  getHead() {
+    return this.head;
+  }
+  getTail() {
+    return this.tail;
+  }
+  clearNode() {
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
+  }
+  toArray() {
+    const result = [];
+    let currentNode = this.head;
+    while (currentNode) {
+      result.push(currentNode.value);
+      currentNode = currentNode.next;
+    }
+    return result;
+  }
+  toString() {
+    let currentNode = this.head;
+    while (currentNode) {
+      if (typeof currentNode.value !== "string") {
+        currentNode.value = String(currentNode.value);
+      }
+      currentNode = currentNode.next;
+    }
+    return currentNode;
   }
 }
 
