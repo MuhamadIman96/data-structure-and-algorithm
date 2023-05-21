@@ -39,7 +39,7 @@ class SingleLinkedList {
       this.head = null;
       this.tail = null;
     }
-    return current;
+    return currentNode;
   }
   shift() {
     if (!this.head) return undefined;
@@ -81,7 +81,7 @@ class SingleLinkedList {
     }
     return false;
   }
-  insertValue(index, value) {
+  insert(index, value) {
     if (index < 0 || index > this.length) return false;
     if (index === 0) return !!this.unshift(value);
     if (index === this.length) return !!this.push(value);
