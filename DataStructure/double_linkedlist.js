@@ -128,4 +128,25 @@ class DoubleLinkedList {
     this.length--;
     return removeNode;
   }
+  reverse() {
+    if (this.length === 0 || this.length === 1) return;
+    let currentNode = this.head;
+    let prevNode = null;
+    let nextNode = null;
+
+    while (currentNode !== null) {
+      nextNode = currentNode.next;
+
+      currentNode.next = prevNode;
+      currentNode.prev = nextNode;
+
+      prevNode = currentNode;
+      currentNode = nextNode;
+    }
+
+    this.tail = this.head;
+    this.head = prevNode;
+
+    return this;
+  }
 }
